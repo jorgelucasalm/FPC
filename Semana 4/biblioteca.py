@@ -97,85 +97,35 @@ class Biblioteca:
                 if la[i].nome.lower() > la[i+1].nome.lower():
                     la[i], la[i+1] = la[i+1], la[i]
 
-        if len(la) == 0:
-            return ld
+        if len(ld) > 0 and len(la) > 0:
+            for j in range(len(la)):
+                for i in range(len(ld)):
+                    if la[i].nome.lower() > ld[j].nome.lower():
+                        arr.append(ld[j])
+                    else:
+                        arr.append(la[i])
+            return arr
+        if len(ld) > 0 or len(la) > 0:
+            if len(ld) > 1:
+                return ld
+            if len(la) > 1:
+                return la
 
-        for j in range(len(la)):
-            for i in range(len(ld)):
-                if la[i].nome.lower() > ld[j].nome.lower():
-                    arr.append(ld[j])
-                else:
-                    arr.append(la[i])
 
-        for i in range(len(arr)):
-            print(arr[i].nome)
 # exemplo de execucao:
-
-
-l = Livro(123, "Calculo 1", "Stwart")
-l2 = Livro(101, "Fisica", "Tipler")
-l3 = Livro(789, "Estatistica", "Jessica")
-l4 = Livro(456, "Algebra", "Jessica")
-l5 = Livro(782, "Matematica", "Tipler")
-l6 = Livro(454, "Zoologia", "Tipler")
-
 b = Biblioteca()
 
-b.inserir(l6)
-b.inserir(l4)
-b.inserir(l)
-b.inserir(l2)
-b.inserir(l3)
-b.inserir(l5)
+inp = input().split(',')
+x = inp[0]
+inp.remove(inp[0])
 
-b.livrosOrdenadosPeloNome()
+for i in range(len(inp)):
+    if i % 3 == 0:
+        b.inserir(Livro(inp[i], inp[i+1], inp[i+2]))
 
+arr = b.livrosOrdenadosPeloNome()
+newArr = []
+for i in range(len(arr)):
+    newArr.append((arr[i].codigo))
 
-##(True, None)
-
-# >>>
-
-# >>> b.inserir(l)
-
-# >>> b.inserir(l2)
-
-# >>> b.alugar(l)
-##(True, None)
-
-# >>> b.alugar(l)
-##(False, 'O livro ja esta alugado, infelizmente voce nao podera alugar')
-
-# >>> b.devolver(l.codigo)
-##(True, None)
-
-# >>> b.livroMaisAlugado()
-##(True, 'O livro mais alugado e: Calculo 1 (2 alugueis)')
-
-# >>> b.devolver(l.codigo)
-##(True, None)
-
-# >>> b.devolver(l.codigo)
-##(False, 'O livro nao esta alugado')
-
-# >>> b.devolver(l2.codigo)
-##(False, 'O livro nao esta alugado')
-
-# >>> b.alugar(l2)
-##(True, None)
-
-# >>> b.alugar(l2)
-##(False, 'O livro ja esta alugado, infelizmente voce nao podera alugar')
-
-# >>> b.devolver(l2.codigo)
-##(True, None)
-
-# >>> def getNome(livro):
-# >>>     return livro.nome
-
-# >>> b.disponiveis.sort(key=getNome)
-
-# >>> for l in b.disponiveis:
-# print(l.nome)
-# Calculo 1
-# Calculo 1
-# Fisica
+print(' '.join(newArr))
